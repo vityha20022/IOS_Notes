@@ -7,23 +7,56 @@
 
 import UIKit
 
-class NoteViewController: UIViewController {
+class NoteViewController: UIViewController, UITextViewDelegate {
+    @IBOutlet weak var noteTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        noteTextView.delegate = self
+        noteTextView.text = "dsfsdfsdfsd\n\nfsdfsdfsdfds\nffdfdfd\nfsdfdsf\n\nfwefewfewfrgt"
+        makeHeaderBold()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneEditingClicked))
+        self.navigationItem.rightBarButtonItem = doneButton
     }
-    */
 
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.navigationItem.rightBarButtonItem = nil
+    }
+
+    @objc func doneEditingClicked() {
+        noteTextView.resignFirstResponder()
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        makeHeaderBold()
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        makeHeaderBold()
+    }
+
+    func makeHeaderBold() {
+        let selectedRange = noteTextView.selectedRange
+        let noteText = noteTextView.text! as NSString
+        let noteComponents = noteText.components(separatedBy: "\n")
+
+        let firstNoteString = noteComponents[0]
+
+        let attributedText = NSMutableAttributedString(attributedString: noteTextView.attributedText!)
+
+        var boldTextRange = noteText.range(of: firstNoteString)
+        if boldTextRange.length == 0 {
+            boldTextRange = NSRange(0...0)
+        }
+        attributedText.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 30.0), range: boldTextRange)
+
+        let smallTextRange = boldTextRange.length > 0 ? NSRange(boldTextRange.upperBound..<noteText.length) : NSRange(0..<noteText.length)
+        attributedText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 17.0), range: smallTextRange)
+
+        noteTextView.attributedText = attributedText
+        noteTextView.selectedRange = selectedRange
+    }
 }
