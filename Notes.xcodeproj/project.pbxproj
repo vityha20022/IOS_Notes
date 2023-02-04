@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		9792CD43298D318C00A1D6D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD42298D318C00A1D6D3 /* AppDelegate.swift */; };
 		9792CD45298D318C00A1D6D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD44298D318C00A1D6D3 /* SceneDelegate.swift */; };
-		9792CD47298D318C00A1D6D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD46298D318C00A1D6D3 /* ViewController.swift */; };
 		9792CD4A298D318C00A1D6D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9792CD48298D318C00A1D6D3 /* Main.storyboard */; };
 		9792CD4C298D318D00A1D6D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9792CD4B298D318D00A1D6D3 /* Assets.xcassets */; };
 		9792CD4F298D318D00A1D6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9792CD4D298D318D00A1D6D3 /* LaunchScreen.storyboard */; };
+		9792CD58298D33E200A1D6D3 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD57298D33E200A1D6D3 /* NotesTableViewController.swift */; };
+		9792CD5A298D341100A1D6D3 /* NotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD59298D341100A1D6D3 /* NotesModel.swift */; };
+		9792CD5C298ECC6000A1D6D3 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD5B298ECC6000A1D6D3 /* NoteTableViewCell.swift */; };
+		9792CD5E298EDD3B00A1D6D3 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792CD5D298EDD3B00A1D6D3 /* NoteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9792CD3F298D318C00A1D6D3 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9792CD42298D318C00A1D6D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9792CD44298D318C00A1D6D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9792CD46298D318C00A1D6D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9792CD49298D318C00A1D6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9792CD4B298D318D00A1D6D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9792CD4E298D318D00A1D6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9792CD50298D318D00A1D6D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9792CD57298D33E200A1D6D3 /* NotesTableViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		9792CD59298D341100A1D6D3 /* NotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModel.swift; sourceTree = "<group>"; };
+		9792CD5B298ECC6000A1D6D3 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		9792CD5D298EDD3B00A1D6D3 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +64,14 @@
 			children = (
 				9792CD42298D318C00A1D6D3 /* AppDelegate.swift */,
 				9792CD44298D318C00A1D6D3 /* SceneDelegate.swift */,
-				9792CD46298D318C00A1D6D3 /* ViewController.swift */,
 				9792CD48298D318C00A1D6D3 /* Main.storyboard */,
 				9792CD4B298D318D00A1D6D3 /* Assets.xcassets */,
 				9792CD4D298D318D00A1D6D3 /* LaunchScreen.storyboard */,
 				9792CD50298D318D00A1D6D3 /* Info.plist */,
+				9792CD57298D33E200A1D6D3 /* NotesTableViewController.swift */,
+				9792CD59298D341100A1D6D3 /* NotesModel.swift */,
+				9792CD5B298ECC6000A1D6D3 /* NoteTableViewCell.swift */,
+				9792CD5D298EDD3B00A1D6D3 /* NoteViewController.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -77,6 +86,7 @@
 				9792CD3B298D318C00A1D6D3 /* Sources */,
 				9792CD3C298D318C00A1D6D3 /* Frameworks */,
 				9792CD3D298D318C00A1D6D3 /* Resources */,
+				9792CD56298D319600A1D6D3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -133,14 +143,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9792CD56298D319600A1D6D3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9792CD3B298D318C00A1D6D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9792CD47298D318C00A1D6D3 /* ViewController.swift in Sources */,
 				9792CD43298D318C00A1D6D3 /* AppDelegate.swift in Sources */,
+				9792CD5A298D341100A1D6D3 /* NotesModel.swift in Sources */,
 				9792CD45298D318C00A1D6D3 /* SceneDelegate.swift in Sources */,
+				9792CD5C298ECC6000A1D6D3 /* NoteTableViewCell.swift in Sources */,
+				9792CD5E298EDD3B00A1D6D3 /* NoteViewController.swift in Sources */,
+				9792CD58298D33E200A1D6D3 /* NotesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +329,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,6 +358,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
