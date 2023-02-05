@@ -15,6 +15,7 @@ class NoteViewController: UIViewController, UITextViewDelegate, UITextPasteDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         noteTextView.delegate = self
         noteTextView.pasteDelegate = self
         noteTextView.text = noteText

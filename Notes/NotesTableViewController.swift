@@ -19,6 +19,8 @@ class NotesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.tabBarItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 25)], for: .normal)
+        self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
     }
 
     // MARK: - Table view data source
@@ -49,7 +51,7 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            removeNote(at: indexPath.row)
+            removeNoteAndUpdateNotesCount(at: indexPath)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -79,6 +81,8 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func unwindFromNotePage( _ seg: UIStoryboardSegue) {
+        self.tabBarController?.tabBar.isHidden = false
+
         let noteVC = seg.source as! NoteViewController
         guard seg.identifier == "unwindFromNotePage" else {
             return
@@ -86,32 +90,46 @@ class NotesTableViewController: UITableViewController {
 
         let noteText = noteVC.noteTextView.text!
 
-        if let cellIndex = noteVC.cellIndex { // add new note
+        if let cellIndex = noteVC.cellIndex { // edit note
             guard !noteText.isEmpty else {
-                removeNote(at: cellIndex.row)
+                removeNoteAndUpdateNotesCount(at: cellIndex)
+
+                tableView.reloadData()
                 return
             }
 
             editNote(at: cellIndex.row, noteHeader: noteText.getFirstStringOfText(), noteBody: noteText.getAllStringsExceptFirst())
             tableView.reloadData()
-        } else {
+        } else {  // add new node
             guard !noteText.isEmpty else { // empty note
                 return
             }
 
-            addNote(noteHeader: noteText.getFirstStringOfText(), noteBody: noteText.getAllStringsExceptFirst())
+            addNoteAndUpdateNotesCount(noteHeader: noteText.getFirstStringOfText(), noteBody: noteText.getAllStringsExceptFirst())
             tableView.reloadData()
         }
+    }
+
+    func addNoteAndUpdateNotesCount(noteHeader: String, noteBody: String) {
+        addNote(noteHeader: noteHeader, noteBody: noteBody)
+        self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
+    }
+
+    func removeNoteAndUpdateNotesCount(at path: IndexPath) {
+        removeNote(at: path.row)
+        self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
+    }
+
+    func createNotesCountString(notesCount: Int) -> String {
+        return String(notesCount) + " " + "notes"
     }
 }
 
 extension String {
     func getFirstStringOfText() -> String {
         let noteComponents = self.components(separatedBy: "\n")
-        for component in noteComponents {
-            if !component.isEmpty {
-                return component
-            }
+        for component in noteComponents where !component.isEmpty {
+            return component
         }
 
         return ""
@@ -119,11 +137,9 @@ extension String {
 
     func getAllStringsExceptFirst() -> String {
         var noteComponents = self.components(separatedBy: "\n")
-        for index in 0..<noteComponents.count {
-            if !noteComponents[index].isEmpty {
-                noteComponents.remove(at: index)
-                break
-            }
+        for index in 0..<noteComponents.count where !noteComponents[index].isEmpty {
+            noteComponents.remove(at: index)
+            break
         }
         return noteComponents.joined(separator: "\n")
     }

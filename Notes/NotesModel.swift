@@ -54,3 +54,7 @@ func moveNote(fromIndex: Int, toIndex: Int) {
 
     notesList.insert(fromNote, at: toIndex)
 }
+
+func getNotesCount() -> Int {
+    return notesList.count
+}
