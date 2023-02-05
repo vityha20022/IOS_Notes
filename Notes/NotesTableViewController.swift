@@ -8,7 +8,7 @@
 import UIKit
 
 class NotesTableViewController: UITableViewController {
-
+    // process navigation bar buttons clicked
     @IBAction func pushEditAction(_ sender: Any) {
         tableView.setEditing(!tableView.isEditing, animated: true)
     }
@@ -16,14 +16,13 @@ class NotesTableViewController: UITableViewController {
     @IBAction func pushAddAction(_ sender: Any) {
         showNotePage(noteText: "", cellIndex: nil)
     }
-
+    
+    // UITableViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.tabBarItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 25)], for: .normal)
         self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -45,7 +44,7 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+
         return true
     }
 
@@ -68,11 +67,7 @@ class NotesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let noteVC = segue.destination as! NoteViewController
-        noteVC.noteText = ""
-    }
-
+    // screen navigation functions
     func showNotePage(noteText: String, cellIndex: IndexPath?) {
         let noteVC = storyboard?.instantiateViewController(withIdentifier: "NoteViewController") as! NoteViewController
         noteVC.noteText = noteText
@@ -92,8 +87,7 @@ class NotesTableViewController: UITableViewController {
 
         if let cellIndex = noteVC.cellIndex { // edit note
             guard !noteText.isEmpty else {
-                removeNoteAndUpdateNotesCount(at: cellIndex)
-
+                removeNoteAndUpdateNotesCount(at: cellIndex) // empty note
                 tableView.reloadData()
                 return
             }
@@ -109,7 +103,8 @@ class NotesTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
+    
+    // cell managment functions
     func addNoteAndUpdateNotesCount(noteHeader: String, noteBody: String) {
         addNote(noteHeader: noteHeader, noteBody: noteBody)
         self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
@@ -119,7 +114,8 @@ class NotesTableViewController: UITableViewController {
         removeNote(at: path.row)
         self.navigationController?.tabBarItem.title = createNotesCountString(notesCount: getNotesCount())
     }
-
+    
+    // util function
     func createNotesCountString(notesCount: Int) -> String {
         return String(notesCount) + " " + "notes"
     }

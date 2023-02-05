@@ -21,7 +21,7 @@ class NoteViewController: UIViewController, UITextViewDelegate, UITextPasteDeleg
         noteTextView.text = noteText
         makeHeaderBold()
     }
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneEditingClicked))
         self.navigationItem.rightBarButtonItem = doneButton
@@ -36,10 +36,6 @@ class NoteViewController: UIViewController, UITextViewDelegate, UITextPasteDeleg
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        makeHeaderBold()
-    }
-
-    func textViewDidChangeSelection(_ textView: UITextView) {
         makeHeaderBold()
     }
 
