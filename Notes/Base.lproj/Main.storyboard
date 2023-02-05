@@ -13,34 +13,31 @@
         <scene sceneID="pZ3-ft-RWo">
             <objects>
                 <tableViewController id="Jl2-cN-fW7" customClass="NotesTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="6I5-dp-PhV">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="6I5-dp-PhV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteCell" rowHeight="60" id="J5N-su-Q4D" customClass="NoteTableViewCell" customModule="Notes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteCell" rowHeight="90" id="J5N-su-Q4D" customClass="NoteTableViewCell" customModule="Notes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J5N-su-Q4D" id="Mue-Ga-NRU">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7IH-2j-chB">
-                                            <rect key="frame" x="10" y="5" width="373" height="45"/>
+                                            <rect key="frame" x="10" y="5" width="373" height="75"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLk-8T-yX2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="373" height="6"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dLk-8T-yX2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="373" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="Klm-oK-6g0"/>
+                                                        <constraint firstAttribute="height" constant="40" id="QgI-k6-2kt"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7K3-Bm-67d">
-                                                    <rect key="frame" x="0.0" y="11" width="373" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="rIP-y9-Oh3"/>
-                                                    </constraints>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7K3-Bm-67d">
+                                                    <rect key="frame" x="0.0" y="45" width="373" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -74,7 +71,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="eag-CH-qbd">
                                 <connections>
-                                    <action selector="pushAddAction:" destination="Jl2-cN-fW7" id="eaS-Iw-kVa"/>
+                                    <action selector="pushAddAction:" destination="Jl2-cN-fW7" id="WMg-De-9VN"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Edit" id="N1j-cL-jbQ">
@@ -85,6 +82,9 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="3HD-Hs-v10" kind="show" identifier="notePageSegue" id="aXV-vD-Nun"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JuU-W7-Rvz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,20 +93,20 @@
         <!--Note View Controller-->
         <scene sceneID="hKh-bX-oq7">
             <objects>
-                <viewController id="3HD-Hs-v10" customClass="NoteViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NoteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3HD-Hs-v10" customClass="NoteViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c6N-Ii-i1S">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcj-pE-6Xv">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <mutableString key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cil lium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et             dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam  liber te conscient to factor tum poen legum odioque civiuda</mutableString>
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <font key="NSFont" metaFont="system" size="30"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -122,12 +122,19 @@
                             <constraint firstItem="bcj-pE-6Xv" firstAttribute="top" secondItem="NSI-ge-tr0" secondAttribute="top" id="h0s-Oy-Rez"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3fG-fB-Yyp"/>
+                    <navigationItem key="navigationItem" id="3fG-fB-Yyp">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="FVz-sU-3Ss">
+                            <connections>
+                                <segue destination="6KB-px-rce" kind="unwind" identifier="unwindFromNotePage" unwindAction="unwindFromNotePage:" id="77X-eA-ja5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="noteTextView" destination="bcj-pE-6Xv" id="mBg-eQ-AJU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5b-TL-YCP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="6KB-px-rce" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1752" y="34"/>
         </scene>
@@ -142,7 +149,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="3HD-Hs-v10" kind="relationship" relationship="rootViewController" id="xzZ-G0-SfX"/>
+                        <segue destination="Jl2-cN-fW7" kind="relationship" relationship="rootViewController" id="l8k-Pc-TBG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIw-X0-dx9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

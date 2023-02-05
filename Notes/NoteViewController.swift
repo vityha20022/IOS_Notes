@@ -7,13 +7,18 @@
 
 import UIKit
 
-class NoteViewController: UIViewController, UITextViewDelegate {
+class NoteViewController: UIViewController, UITextViewDelegate, UITextPasteDelegate {
     @IBOutlet weak var noteTextView: UITextView!
+
+    var noteText: String!
+    var cellIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTextView.delegate = self
-        noteTextView.text = "dsfsdfsdfsd\n\nfsdfsdfsdfds\nffdfdfd\nfsdfdsf\n\nfwefewfewfrgt"
+        noteTextView.pasteDelegate = self
+        noteTextView.text = noteText
+        noteTextView.becomeFirstResponder()
         makeHeaderBold()
     }
 
@@ -38,25 +43,57 @@ class NoteViewController: UIViewController, UITextViewDelegate {
         makeHeaderBold()
     }
 
+    func textPasteConfigurationSupporting(_ textPasteConfigurationSupporting: UITextPasteConfigurationSupporting,
+                                          performPasteOf attributedString: NSAttributedString, to textRange: UITextRange) -> UITextRange {
+        if let textView = textPasteConfigurationSupporting as? UITextView {
+            let pasteBoard = UIPasteboard.general
+            if pasteBoard.hasStrings {
+                guard let pasteString = pasteBoard.string else {
+                    return textRange
+                }
+
+                textView.insertText(pasteString)
+
+                DispatchQueue.main.async {
+                    if let selectedRange = textView.selectedTextRange {
+                        // only if the new position is valid
+                        if let newPosition = textView.position(from: selectedRange.start, offset: pasteString.count) {
+                            // set the new position
+                            textView.selectedTextRange = textView.textRange(from: newPosition, to: newPosition)
+                        }
+                    }
+                }
+            }
+        }
+
+        return textRange
+    }
+
     func makeHeaderBold() {
         let selectedRange = noteTextView.selectedRange
-        let noteText = noteTextView.text! as NSString
-        let noteComponents = noteText.components(separatedBy: "\n")
+        let noteNSText = noteTextView.text! as NSString
+        let noteComponents = noteNSText.components(separatedBy: "\n")
 
         let firstNoteString = noteComponents[0]
 
         let attributedText = NSMutableAttributedString(attributedString: noteTextView.attributedText!)
 
-        var boldTextRange = noteText.range(of: firstNoteString)
+        if attributedText.length == 0 {
+            return
+        }
+
+        var boldTextRange = noteNSText.range(of: firstNoteString)
         if boldTextRange.length == 0 {
             boldTextRange = NSRange(0...0)
         }
         attributedText.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 30.0), range: boldTextRange)
 
-        let smallTextRange = boldTextRange.length > 0 ? NSRange(boldTextRange.upperBound..<noteText.length) : NSRange(0..<noteText.length)
+        let smallTextRange = boldTextRange.length > 0 ? NSRange(boldTextRange.upperBound..<noteNSText.length) : NSRange(0..<noteNSText.length)
+
         attributedText.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 17.0), range: smallTextRange)
 
         noteTextView.attributedText = attributedText
         noteTextView.selectedRange = selectedRange
     }
+
 }

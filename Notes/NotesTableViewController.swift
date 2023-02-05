@@ -14,23 +14,10 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func pushAddAction(_ sender: Any) {
-        /*let noteAddingController = UIAlertController(title: "Create new note", message: "", preferredStyle: .alert)
-        noteAddingController.addTextField { textField in
-            textField.placeholder = "New note..."
-        }
-
-        let createAction = UIAlertAction(title: "Create", style: .cancel) { _ in
-            let newNote = noteAddingController.textFields![0].text
-            addNote(noteName: newNote!)
-            self.tableView.reloadData()
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-
-        noteAddingController.addAction(createAction)
-        noteAddingController.addAction(cancelAction)
-
-        present(noteAddingController, animated: true)*/
+        let noteVC = storyboard?.instantiateViewController(withIdentifier: "NoteViewController") as! NoteViewController
+        noteVC.noteText = ""
+        noteVC.cellIndex = nil
+        navigationController?.pushViewController(noteVC, animated: true)
     }
 
     override func viewDidLoad() {
@@ -58,8 +45,8 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
 
-        cell.noteHeaderTextField.text = notesList[indexPath.row].noteHeader
-        cell.noteBodyTextField.text = notesList[indexPath.row].noteBody
+        cell.noteHeaderTextField.text = notesList[indexPath.row].header
+        cell.noteBodyTextField.text = notesList[indexPath.row].body.getFirstStringOfText()
 
         return cell
     }
@@ -71,11 +58,8 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
             removeNote(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
 
@@ -86,6 +70,32 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         moveNote(fromIndex: fromIndexPath.row, toIndex: to.row)
         tableView.reloadData()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let noteVC = segue.destination as! NoteViewController
+        noteVC.noteText = ""
+    }
+
+    @IBAction func unwindFromNotePage( _ seg: UIStoryboardSegue) {
+        let noteVc = seg.source as! NoteViewController
+        print("ok")
+        guard seg.identifier == "unwindFromNotePage" else {
+            return
+        }
+
+        let cellIndex = noteVc.cellIndex
+        let noteText = noteVc.noteTextView.text!
+
+        if cellIndex == nil { // add new note
+            guard !noteText.isEmpty else { // empty note
+                return
+            }
+
+            notesList.append(Note(header: noteText.getFirstStringOfText(), body: noteText.getAllStringsExceptFirst()))
+            print(Note(header: noteText.getFirstStringOfText(), body: noteText.getAllStringsExceptFirst()))
+            tableView.reloadData()
+        }
     }
 
     /*
@@ -106,4 +116,28 @@ class NotesTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension String {
+    func getFirstStringOfText() -> String {
+        let noteComponents = self.components(separatedBy: "\n")
+        for component in noteComponents {
+            if !component.isEmpty {
+                return component
+            }
+        }
+
+        return ""
+    }
+
+    func getAllStringsExceptFirst() -> String {
+        var noteComponents = self.components(separatedBy: "\n")
+        for index in 0..<noteComponents.count {
+            if !noteComponents[index].isEmpty {
+                noteComponents.remove(at: index)
+                break
+            }
+        }
+        return noteComponents.joined(separator: "\n")
+    }
 }

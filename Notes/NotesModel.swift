@@ -7,24 +7,32 @@
 
 import Foundation
 
+struct Note: Codable {
+    var header: String
+    var body: String
+}
+
 let notesDataKey = "notesData"
-var notesList: [(noteHeader: String, noteBody: String)] {
+var notesList: [Note] {
     get {
-        guard let notesData = UserDefaults.standard.array(forKey: notesDataKey) as? [(String, String)] else {
-            return [("Go to shop", "I shoul'd go to shop")]
+        guard let decodedNotesData = UserDefaults.standard.data(forKey: notesDataKey) else {
+            return [Note(header: "Go to shop", body: "I shoul'd go to shop")]
         }
 
-        return notesData
+        let encodedNotesData = try! PropertyListDecoder().decode([Note].self, from: decodedNotesData)
+
+        return encodedNotesData
     }
 
     set {
-        UserDefaults.standard.set(newValue, forKey: notesDataKey)
+        let encodedNote = try! PropertyListEncoder().encode(newValue)
+        UserDefaults.standard.set(encodedNote, forKey: notesDataKey)
         UserDefaults.standard.synchronize()
     }
 }
 
 func addNote(noteHeader: String, noteBody: String) {
-    notesList.append((noteHeader, noteBody))
+    notesList.append(Note(header: noteHeader, body: noteBody))
 }
 
 func removeNote(at index: Int) {
