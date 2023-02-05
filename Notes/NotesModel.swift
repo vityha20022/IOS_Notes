@@ -31,8 +31,17 @@ var notesList: [Note] {
     }
 }
 
+func getNote(at index: Int) -> Note {
+    return notesList[index]
+}
+
 func addNote(noteHeader: String, noteBody: String) {
     notesList.append(Note(header: noteHeader, body: noteBody))
+}
+
+func editNote(at index: Int, noteHeader: String, noteBody: String) {
+    notesList[index].header = noteHeader
+    notesList[index].body = noteBody
 }
 
 func removeNote(at index: Int) {

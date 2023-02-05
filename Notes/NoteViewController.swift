@@ -11,14 +11,13 @@ class NoteViewController: UIViewController, UITextViewDelegate, UITextPasteDeleg
     @IBOutlet weak var noteTextView: UITextView!
 
     var noteText: String!
-    var cellIndex: Int?
+    var cellIndex: IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTextView.delegate = self
         noteTextView.pasteDelegate = self
         noteTextView.text = noteText
-        noteTextView.becomeFirstResponder()
         makeHeaderBold()
     }
 

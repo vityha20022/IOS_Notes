@@ -14,20 +14,11 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func pushAddAction(_ sender: Any) {
-        let noteVC = storyboard?.instantiateViewController(withIdentifier: "NoteViewController") as! NoteViewController
-        noteVC.noteText = ""
-        noteVC.cellIndex = nil
-        navigationController?.pushViewController(noteVC, animated: true)
+        showNotePage(noteText: "", cellIndex: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -65,6 +56,9 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let note = getNote(at: indexPath.row)
+        let noteText = note.header + "\n" + note.body
+        showNotePage(noteText: noteText, cellIndex: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -77,45 +71,38 @@ class NotesTableViewController: UITableViewController {
         noteVC.noteText = ""
     }
 
+    func showNotePage(noteText: String, cellIndex: IndexPath?) {
+        let noteVC = storyboard?.instantiateViewController(withIdentifier: "NoteViewController") as! NoteViewController
+        noteVC.noteText = noteText
+        noteVC.cellIndex = cellIndex
+        navigationController?.pushViewController(noteVC, animated: true)
+    }
+
     @IBAction func unwindFromNotePage( _ seg: UIStoryboardSegue) {
-        let noteVc = seg.source as! NoteViewController
-        print("ok")
+        let noteVC = seg.source as! NoteViewController
         guard seg.identifier == "unwindFromNotePage" else {
             return
         }
 
-        let cellIndex = noteVc.cellIndex
-        let noteText = noteVc.noteTextView.text!
+        let noteText = noteVC.noteTextView.text!
 
-        if cellIndex == nil { // add new note
+        if let cellIndex = noteVC.cellIndex { // add new note
+            guard !noteText.isEmpty else {
+                removeNote(at: cellIndex.row)
+                return
+            }
+
+            editNote(at: cellIndex.row, noteHeader: noteText.getFirstStringOfText(), noteBody: noteText.getAllStringsExceptFirst())
+            tableView.reloadData()
+        } else {
             guard !noteText.isEmpty else { // empty note
                 return
             }
 
-            notesList.append(Note(header: noteText.getFirstStringOfText(), body: noteText.getAllStringsExceptFirst()))
-            print(Note(header: noteText.getFirstStringOfText(), body: noteText.getAllStringsExceptFirst()))
+            addNote(noteHeader: noteText.getFirstStringOfText(), noteBody: noteText.getAllStringsExceptFirst())
             tableView.reloadData()
         }
     }
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension String {
